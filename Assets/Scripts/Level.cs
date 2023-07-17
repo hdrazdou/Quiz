@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -11,11 +10,11 @@ public class Level : MonoBehaviour
     public string Answer4;
 
     public CorrectAnswer Correct;
-    
+
     [TextArea]
     public string Question;
 
-    public Sprite QuestionSprite;
+    public Sprite Sprite;
 
     #endregion
 
