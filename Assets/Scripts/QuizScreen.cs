@@ -9,11 +9,11 @@ public class QuizScreen : MonoBehaviour
     #region Variables
 
     public List<LevelConfig> AllLevels;
-
     public Button Answer1;
     public Button Answer2;
     public Button Answer3;
     public Button Answer4;
+    public Button HintButton;
     public Image LevelImage;
     public TMP_Text LivesLeftLabel;
     public static int MistakesAmount;
@@ -21,6 +21,7 @@ public class QuizScreen : MonoBehaviour
     private int _allowedMistakesAmount;
     private string _correctAnswer;
     private LevelConfig _currentLevel;
+    private bool _isHintUsed;
     private int _livesLeftAmount;
     private int currentLevelIndex;
 
@@ -39,11 +40,24 @@ public class QuizScreen : MonoBehaviour
         Answer2.onClick.AddListener(() => ApproveSelectedAnswer(Answer2));
         Answer3.onClick.AddListener(() => ApproveSelectedAnswer(Answer3));
         Answer4.onClick.AddListener(() => ApproveSelectedAnswer(Answer4));
+        HintButton.onClick.AddListener(OnHintButtonClicked);
     }
 
     #endregion
 
     #region Private methods
+
+    private void _restoreRemovedButtons()
+    {
+        if (_isHintUsed)
+        {
+            Answer1.gameObject.SetActive(true);
+            Answer2.gameObject.SetActive(true);
+            Answer3.gameObject.SetActive(true);
+            Answer4.gameObject.SetActive(true);
+            HintButton.gameObject.SetActive(true);
+        }
+    }
 
     private void ApproveSelectedAnswer(Button selectedButton)
     {
@@ -54,8 +68,8 @@ public class QuizScreen : MonoBehaviour
             // WrongButtonClicked(selectedButton);
             MistakesAmount++;
             _livesLeftAmount -= 1;
-
             UpdateUI();
+
             if (MistakesAmount == _allowedMistakesAmount)
             {
                 SceneManager.LoadScene("GameOverScene");
@@ -65,7 +79,26 @@ public class QuizScreen : MonoBehaviour
         }
 
         currentLevelIndex++;
+        _restoreRemovedButtons();
         UpdateUI();
+    }
+
+    private void OnHintButtonClicked()
+    {
+        _isHintUsed = true;
+
+        List<Button> ButtonsToRemove = new() { Answer1, Answer2, Answer3, Answer4 };
+
+        int indexToRemove = int.Parse(_correctAnswer.Replace("Answer", "")) - 1;
+        ButtonsToRemove.RemoveAt(indexToRemove);
+
+        indexToRemove = Random.Range(0, 3);
+        ButtonsToRemove.RemoveAt(indexToRemove);
+        
+        ButtonsToRemove[0].gameObject.SetActive(false);
+        ButtonsToRemove[1].gameObject.SetActive(false);
+
+        HintButton.gameObject.SetActive(false);
     }
 
     private void UpdateUI()
