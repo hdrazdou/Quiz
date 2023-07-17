@@ -8,7 +8,7 @@ public class QuizScreen : MonoBehaviour
 {
     #region Variables
 
-    public List<Level> AllLevels;
+    public List<LevelConfig> AllLevels;
 
     public Button Answer1;
     public Button Answer2;
@@ -20,7 +20,7 @@ public class QuizScreen : MonoBehaviour
     public TMP_Text Question;
     private int _allowedMistakesAmount;
     private string _correctAnswer;
-    private Level _currentLevel;
+    private LevelConfig _currentLevel;
     private int _livesLeftAmount;
     private int currentLevelIndex;
 
@@ -51,8 +51,10 @@ public class QuizScreen : MonoBehaviour
 
         if (_correctAnswer != selectedAnswer)
         {
+            // WrongButtonClicked(selectedButton);
             MistakesAmount++;
             _livesLeftAmount -= 1;
+
             UpdateUI();
             if (MistakesAmount == _allowedMistakesAmount)
             {
@@ -86,4 +88,11 @@ public class QuizScreen : MonoBehaviour
     }
 
     #endregion
+
+    // private void WrongButtonClicked(Button selectedButton)
+    // {
+    //     ColorBlock colors = selectedButton.colors;
+    //     colors.normalColor = Color.red;
+    //     selectedButton.colors = colors;
+    // }
 }

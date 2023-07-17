@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class Level : MonoBehaviour
+[CreateAssetMenu(fileName = nameof(LevelConfig), menuName = "Configs/Level Config")]
+public class LevelConfig : ScriptableObject
 {
     #region Variables
 
