@@ -18,4 +18,4 @@ MonoBehaviour:
   Answer4: Peru
   Correct: 1
   Question: What country is this flag of?
-  Sprite: {fileID: 21300000, guid: 67c0e9bb5dd0e467b9de7128b294ca40, type: 3}
+  Icon: {fileID: 21300000, guid: 67c0e9bb5dd0e467b9de7128b294ca40, type: 3}

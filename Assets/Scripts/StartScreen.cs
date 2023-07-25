@@ -7,7 +7,6 @@ public class StartScreen : MonoBehaviour
 {
     #region Variables
 
-    public TMP_Text NameLabel;
     public Button StartButton;
 
     #endregion
@@ -25,7 +24,7 @@ public class StartScreen : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
-        SceneManager.LoadScene("QuizScene");
+        SceneManager.LoadScene(SceneNames.Game);
     }
 
     #endregion

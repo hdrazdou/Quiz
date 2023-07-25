@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e26516313cf4b14aa3a9b3f09000db4, type: 3}
-  m_Name: Level2Config
+  m_Name: Level3Config
   m_EditorClassIdentifier: 
-  Answer1: Peru
-  Answer2: Poland
-  Answer3: Indonesia
-  Answer4: Gana
-  Correct: 2
-  Question: And this?
-  Icon: {fileID: 21300000, guid: c66cba85e999e4d9aa8f11245595fd41, type: 3}
+  Answer1: '-'
+  Answer2: '-'
+  Answer3: '-'
+  Answer4: 4
+  Correct: 3
+  Icon: {fileID: 21300000, guid: 67c0e9bb5dd0e467b9de7128b294ca40, type: 3}
+  Question: What country is this flag of?

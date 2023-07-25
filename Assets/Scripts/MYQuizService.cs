@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class QuizScreen : MonoBehaviour
+public class MYQuizService : MonoBehaviour
 {
     #region Variables
-
-    public List<LevelConfig> AllLevels;
+    
+    public List<QuestionConfig> AllLevels;
+    
+    public QuestionsContainerConfig ContainerConfig;
+    public GameScreen GameScreen;
+    
+    private int _currentQuestionIndex;
+    
     public Button Answer1;
     public Button Answer2;
     public Button Answer3;
@@ -20,10 +26,10 @@ public class QuizScreen : MonoBehaviour
     public TMP_Text Question;
     private int _allowedMistakesAmount;
     private string _correctAnswer;
-    private LevelConfig _currentLevel;
+    private QuestionConfig _currentQuestion;
     private bool _isHintUsed;
     private int _livesLeftAmount;
-    private int currentLevelIndex;
+    
 
     #endregion
 
@@ -31,7 +37,7 @@ public class QuizScreen : MonoBehaviour
 
     private void Start()
     {
-        currentLevelIndex = 0;
+        _currentQuestionIndex = 0;
         _allowedMistakesAmount = 3;
         MistakesAmount = 0;
         _livesLeftAmount = _allowedMistakesAmount;
@@ -65,7 +71,6 @@ public class QuizScreen : MonoBehaviour
 
         if (_correctAnswer != selectedAnswer)
         {
-            // WrongButtonClicked(selectedButton);
             MistakesAmount++;
             _livesLeftAmount -= 1;
             UpdateUI();
@@ -78,7 +83,7 @@ public class QuizScreen : MonoBehaviour
             return;
         }
 
-        currentLevelIndex++;
+        _currentQuestionIndex++;
         _restoreRemovedButtons();
         UpdateUI();
     }
@@ -103,29 +108,22 @@ public class QuizScreen : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (currentLevelIndex == AllLevels.Count)
+        if (_currentQuestionIndex == AllLevels.Count)
         {
-            SceneManager.LoadScene("FinishScene");
+            SceneManager.LoadScene(SceneNames.Finish);
             return;
         }
 
-        _currentLevel = AllLevels[currentLevelIndex];
+        _currentQuestion = AllLevels[_currentQuestionIndex];
         LivesLeftLabel.text = $"Lives left: {_livesLeftAmount}";
-        _correctAnswer = _currentLevel.Correct.ToString();
-        Question.text = _currentLevel.Question;
-        LevelImage.sprite = _currentLevel.Sprite;
-        Answer1.GetComponentInChildren<TMP_Text>().text = _currentLevel.Answer1;
-        Answer2.GetComponentInChildren<TMP_Text>().text = _currentLevel.Answer2;
-        Answer3.GetComponentInChildren<TMP_Text>().text = _currentLevel.Answer3;
-        Answer4.GetComponentInChildren<TMP_Text>().text = _currentLevel.Answer4;
+        _correctAnswer = _currentQuestion.Correct.ToString();
+        Question.text = _currentQuestion.Question;
+        LevelImage.sprite = _currentQuestion.Icon;
+        Answer1.GetComponentInChildren<TMP_Text>().text = _currentQuestion.Answer1;
+        Answer2.GetComponentInChildren<TMP_Text>().text = _currentQuestion.Answer2;
+        Answer3.GetComponentInChildren<TMP_Text>().text = _currentQuestion.Answer3;
+        Answer4.GetComponentInChildren<TMP_Text>().text = _currentQuestion.Answer4;
     }
 
     #endregion
-
-    // private void WrongButtonClicked(Button selectedButton)
-    // {
-    //     ColorBlock colors = selectedButton.colors;
-    //     colors.normalColor = Color.red;
-    //     selectedButton.colors = colors;
-    // }
 }

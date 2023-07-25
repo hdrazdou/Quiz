@@ -16,7 +16,7 @@ public class FinishScreen : MonoBehaviour
 
     private void Start()
     {
-        MistakesAmountLabel.text = $"Mistakes made: {QuizScreen.MistakesAmount}";
+        MistakesAmountLabel.text = $"Mistakes made: {Statistics.WrongAnswers}";
         RestartButton.onClick.AddListener(OnRestartButtonClicked);
     }
 
@@ -26,7 +26,7 @@ public class FinishScreen : MonoBehaviour
 
     private void OnRestartButtonClicked()
     {
-        SceneManager.LoadScene("QuizScene");
+        SceneManager.LoadScene(SceneNames.Start);
     }
 
     #endregion
